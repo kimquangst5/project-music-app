@@ -1,0 +1,25 @@
+extends ../../layouts/default.pug
+block main
+
+	div(class=`` song-detail)
+
+		div(class=`container`)
+			div(class=`capitalize font-bold text-chu text-[20px] py-[20px]` titleSong = song.title) #{song.title}
+			div(class=`py-[10px] flex justify-end gap-x-[20px]`)
+				div(class=`flex gap-[10px] items-center`)
+					button(class="fa-regular fa-music")
+					a(href=`/songs/${song.topicSlug}`)  #{song.topic}
+				div(class=`flex gap-[10px] items-center`)
+					button(class="fa-regular fa-microphone")
+					div(class=``) #{song.singer}
+				div(class=`flex gap-[10px] items-center`)
+					button(class="fa-regular fa-thumbs-up" button-like = song.id)
+					div(class=``) #{song.like}
+				div(class=`flex gap-[10px] items-center`)
+					button(class="fa-regular fa-ear-muffs")
+					div(class=`` number-of-listens = song.id link = `/songs/change-listen`) #{song.listen}
+			div(class=`flex justify-start gap-[10x]` audioSong = song.audio) 
+				div(class=`h-[100px] w-[100px] hidden` singerSong = song.singer) 
+					img(src=song.avatar, alt="" class=`hidden animate-spin-slow rounded-[100%] h-full` song-avatar)
+				div(id="aplayer" class=`flex-1` aplayer-lyrics = song.lyrics)
+			div(class=`whitespace-pre`) !{song.desc}

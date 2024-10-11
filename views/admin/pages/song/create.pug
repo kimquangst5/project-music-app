@@ -1,0 +1,126 @@
+extends ../../layout/default.pug
+include ../../mixins/dieu-huong.pug
+include ../../mixins/them-moi.pug
+include ../../mixins/khung-table.pug
+include ../../mixins/option-input.pug
+include ../../mixins/cap-nhat.pug
+
+block main
+
+	-
+		let array = [
+			{
+				link: `/${admin}/song`,
+				title: 'Danh sách bài hát'
+			}
+		]
+	+dieu-huong("Thêm mới", array)
+
+	+cap-nhat("Cập nhật")(button-submit-form = '')
+
+	+khung-table("Nội dung chính")
+		form(
+			class=`flex flex-col gap-y-[20px]`
+			action = `/${admin}/song/create`
+			method="POST"
+			enctype="multipart/form-data"
+		) 
+			+option-input('Tên bài hát', 'title', 'yes', `fa-regular fa-music`, 'Tên bài hát', "text")
+			div(class=`flex flex-row items-center gap-y-[10px] flex-col`)
+				div(class="flex gap-[10px] items-center") 
+					i(class='fa-regular fa-music')
+					label(
+						for='description'
+						class=`text-[14px]`
+					) Mô tả
+				textarea(
+					name="description"
+					id = 'description'
+					class=`p-[5px] rounded-[5px] border-[1px] text-[12px] w-full bg-transparent border-text outline-none`
+					placeholder='Mô tả bài hát'
+					textarea-mce
+				)
+			div(class=`flex flex-row items-center gap-y-[10px] grid grid-cols-4`)
+				div(class="flex gap-[10px] items-center") 
+					i(class='fa-regular fa-music')
+					label(
+						for='topic'
+						class=`text-[14px]`
+					) Thể loại
+				select(name="topic" class=`p-[5px] rounded-[5px] border-[1px] text-[12px] bg-transparent border-text outline-none col-span-2`)
+					option(value='' class=`bg-[#38414A] text-text`) ---Chọn thể loại---
+					each it in topics
+						option(name="topic" value=it.id class=`bg-[#38414A] text-text`) #{it.title}
+			div(class=`flex flex-row items-center gap-y-[10px] grid grid-cols-4`)
+				div(class="flex gap-[10px] items-center") 
+					i(class='fa-regular fa-music')
+					label(
+						for='singer'
+						class=`text-[14px]`
+					) Ca sĩ
+				select(name="singer" class=`p-[5px] rounded-[5px] border-[1px] text-[12px] bg-transparent border-text outline-none col-span-2`)
+					option(value='' class=`bg-[#38414A] text-text`) ---Chọn ca sĩ---
+					each it in singers
+						option(name="singer" value=it.id class=`bg-[#38414A] text-text`) #{it.fullName}
+			div(class=`flex flex-row items-center gap-y-[10px] grid grid-cols-4` upload-image)
+				div(class="flex gap-[10px] items-center") 
+					i(class='fa-regular fa-music')
+					label(
+						for='avatar'
+						class=`text-[14px]`
+					) Hình ảnh
+				input(
+					type='file'
+					accept='image/*'
+					name="avatar"
+					id = 'avatar'
+					class=`p-[5px] rounded-[5px] border-[1px] text-[12px] bg-transparent border-text outline-none col-span-2`
+					placeholder='Ảnh bài hát'
+				)
+				img(src="", alt=""
+					class=`w-[25%] h-auto rounded-[10px] cursor-pointer`
+				)
+			
+
+			div(class=`flex flex-row items-center gap-y-[10px] grid grid-cols-4` upload-audio)
+				div(class="flex gap-[10px] items-center") 
+					i(class='fa-regular fa-music')
+					label(
+						for='audio'
+						class=`text-[14px]`
+					) Audio
+				input(
+					type='file'
+					accept='audio/*'
+					name="audio"
+					id = 'audio'
+					class=`p-[5px] rounded-[5px] border-[1px] hidden text-[12px] bg-transparent border-text outline-none col-span-2`
+					placeholder='Audio bài hát'
+					required
+				)
+			
+			div(class=`flex flex-row items-center gap-y-[10px] grid grid-cols-4`)
+				div(class="flex gap-[10px] items-center") 
+					i(class='fa-regular fa-music')
+					label(
+						for='lyrics'
+						class=`text-[14px]`
+					) Lyrics
+				textarea(name="lyrics" class=`p-[5px] rounded-[5px] border-[1px] text-[12px] bg-transparent border-text outline-none col-span-2` rows='10') [00:00.00] Lời bài hát phút 00:00.00
+
+			div(class=`flex flex-row items-center gap-y-[10px] grid grid-cols-4`)
+				div(class="flex gap-[10px] items-center") 
+					i(class='fa-regular fa-music')
+					label(
+						for='status'
+						class=`text-[14px]`
+					) Trạng thái
+				div(class=`col-span-2 flex justify-between`)
+					div(class=`flex gap-[10px]`) 
+						input(type="radio", name="status" id="active" value="active" checked = true)
+						label(for="active") Hoạt động
+					div(class=`flex gap-[10px]`) 
+						input(type="radio", name="status" id="inactive" value="inactive")
+						label(for="inactive") Dừng hoạt động
+			
+			button(type="submit" class=`hidden`) Cập nhật

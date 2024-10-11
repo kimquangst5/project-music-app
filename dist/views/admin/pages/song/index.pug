@@ -1,0 +1,45 @@
+extends ../../layout/default.pug
+include ../../mixins/dieu-huong.pug
+include ../../mixins/them-moi.pug
+include ../../mixins/khung-table.pug
+
+block main
+	+dieu-huong(`Danh sách bài hát`)
+
+	+them-moi(`Thêm bài hát`, `/${admin}/song/create`)
+
+	+khung-table(`Danh sách các bài hát`)
+		table(class=`text-text text-left w-full`)
+			thead
+				tr
+					th
+						div(class=``) Tên chủ đề
+					th
+						div(class=`fa-regular fa-image`)
+					th
+						div(class=``) Thể loại
+					th
+						div(class=``) Ca sĩ
+					th
+						div(class=``) Trạng thái
+			tbody
+				each it in songs
+					tr
+						td
+							div(class=`flex flex-col`) 
+								div(class=``) #{it.title}
+								div(class=``)
+									a(href=`/${admin}/song/edit/${it.id}` class=`fa-solid fa-pen-to-square text-xanh`) 
+									a(href=`` class=``) 
+						td
+							div(class=``)
+								img(src=it.avatar, alt=it.title class=`h-[70px] aspect-[1/1] rounded-[10px]`)
+						td
+							div(class=``) #{it.topicTitle}
+						td
+							div(class=``) #{it.singerFullName}
+						td
+							- if(it.status && it.status == 'active')
+								div(class=``) Hoạt động
+							- if(it.status && it.status == 'inactive')
+								div(class=``) Dừng hoạt động

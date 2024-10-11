@@ -1,0 +1,33 @@
+extends ../../layout/default.pug
+include ../../mixins/dieu-huong.pug
+include ../../mixins/them-moi.pug
+include ../../mixins/khung-table.pug
+
+block main
+	+dieu-huong("Chủ đề bài hát")
+
+	+them-moi("Thêm chủ đề", `/${admin}/song-category/create`)
+
+	+khung-table("Danh sách chủ đề bài hát")
+		table(class=`text-text text-left w-full`)
+			thead
+				tr
+					th
+						div(class=``) Tên chủ đề
+					th
+						div(class=`fa-regular fa-image`)
+					th
+						div(class=``) Trạng thái
+			tbody
+				each it in topics
+					tr
+						td
+							div(class=``) #{it.title}
+						td
+							div(class=``)
+								img(src=it.avatar, alt=it.title class=`h-[70px] aspect-[1/1] rounded-[10px]`)
+						td
+							- if(it.status && it.status == 'active')
+								div(class=``) Hoạt động
+							- if(it.status && it.status == 'inactive')
+								div(class=``) Dừng hoạt động

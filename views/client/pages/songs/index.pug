@@ -1,0 +1,17 @@
+extends ../../layouts/default.pug
+
+block main
+
+	div(class=`section-3`)
+		div(class=`container`)
+			div(class=`pt-[62px] pb-[64px] lg:py-[40px] border-b-[1px] border-b-[#0000001A]`)
+				div(class=`uppercase text-center text-color1 font-[700] text-[48px] sm:text-[32px] leading-[60.72px] mb-[32px]`) danh sÁCH BÀI HÁT
+				div(class=`flex grid grid-cols-2 lg:grid-cols-2 gap-[20px] `)
+					each it in songs
+						div(class=`flex flex-row gap-x-[10px]`)
+							a(href=`/songs/detail/${it.slug}` class=`bg-[#F0EEED] h-[100px] rounded-[20px] truncate aspect-[1/1] md:aspect-[169/169] mb-[20px] md:mb-[12px]`)
+								img(src=it.avatar, alt=it.title class=`h-full w-auto object-cover object-center  `)
+							div(class=``) 
+								a(href=`/songs/detail/${it.slug}` class=`capitalize text-color1 font-[700] text-[18px] md:text-[14px] leading-[22.77px] mb-[10px] lg:mb-[20px]`) #{it.title}
+								div(class=`capitalize text-color1 font-[700] text-[18px] md:text-[14px] leading-[22.77px] mb-[10px] lg:mb-[20px]`) #{it.singer}
+								div(class=`capitalize text-color1 font-[700] text-[18px] md:text-[14px] leading-[22.77px] mb-[10px] lg:mb-[20px]`) #{it.like}

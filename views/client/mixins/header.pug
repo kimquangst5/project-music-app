@@ -1,0 +1,27 @@
+mixin header()
+	header(class=`header pt-[22px] pb-[24px] sticky top-[0] bg-[white] z-[100]`)
+		div(class=`container`)
+			div(class=`flex items-center justify-between`)
+				a(class=`hidden lg:inline-block w-[24px] h-[24px]`, href=``)
+					i(class=`fa-solid fa-bars text-color1 text-[18px]`)
+				a(class=`iconLogo font-[700] text-[32px] text-color1 lg:flex-1 ml-0 lg:ml-[16px]`, href=`/`, title=`28. SHOP`) KIM QUANG
+					img(src=``, alt=``)
+				nav(class=`menu flex lg:hidden gap-[24px] `)
+					//- a(class=`capitalize text-color1 font-[400]`, href=`#`) Giới thiệu
+					a(class=`capitalize text-color1`, href=`/topics`) Sản phẩm
+					//- a(class=`capitalize text-color1`, href=`#`) bài viết
+					//- a(class=`capitalize text-color1`, href=`#`) Liên hệ
+				form(action=`/search/result` class=`w-[40%] h-[48px] bg-[#F0F0F0] flex lg:hidden items-center rounded-[62px] relative`)
+					button(class=`fa-solid fa-magnifying-glass text-[#969696] ml-[16px] mr-[12px]` type='submit')
+					input(class=`bg-transparent w-full outline-none`, type=`text`, placeholder=`Tìm kiếm bài hát...` name='key' value = `${key ? key : ''}`)
+					div(appench-child class=`absolute top-[60px] flex flex-col gap-[10px] bg-[white]  z-[95] `)
+						
+
+				div(class=`header__icon-right my-[12px]`)
+					div(class=`iconGioHang flex gap-[14px]`)
+						a(class=`w-[24px] h-[24px] hidden lg:block`, href=``)
+							i(class=`fa-solid fa-magnifying-glass text-color1 text-[18px]`)
+						a(class=`w-[24px] h-[24px]`, href=``)
+							i(class=`fa-regular fa-cart-shopping text-color1 text-[18px]`)
+						a(class=`w-[24px] h-[24px]`, href=``)
+							i(class=`fa-regular fa-circle-user text-color1 text-[18px]`)

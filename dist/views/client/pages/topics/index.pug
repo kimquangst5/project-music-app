@@ -1,0 +1,25 @@
+extends ../../layouts/default.pug
+
+block main
+	div(class=`section-3`)
+		div(class=`container`)
+			div(class=`pt-[62px] pb-[64px] lg:py-[40px] border-b-[1px] border-b-[#0000001A]`)
+				div(class=`uppercase text-center text-color1 font-[700] text-[48px] sm:text-[32px] leading-[60.72px] mb-[32px]`) THỂ LOẠI BÀI HÁT
+				div(class=`flex grid grid-cols-4 lg:grid-cols-2 gap-[20px] `)
+					each it in topics
+						div(class=`flex flex-col `)
+							a(href=`/songs/${it.slug}` class=`bg-[#F0EEED] rounded-[20px] truncate aspect-[295/295] md:aspect-[169/169] mb-[20px] md:mb-[12px]`)
+								img(src=it.avatar, alt=it.title class=`h-full w-auto object-cover object-center  `)
+							div(class=`capitalize text-color1 font-[700] text-[18px] md:text-[14px] leading-[22.77px] mb-[10px] lg:mb-[20px]`) #{it.title}
+							div(class=`mb-[11.51px] md:mb-[6px]`) 
+								div(class=`text-[#FFC633] font-[700] text-[18px] md:text-[15px] mr-[13px] md:mr-[11px] inline-flex gap-[5.31px]`)
+									i(class=`fa-solid fa-star`)
+									i(class=`fa-solid fa-star`)
+									i(class=`fa-solid fa-star`)
+									i(class=`fa-solid fa-star`)
+									i(class=`fa-solid fa-star`)
+								div(class=`text-color1/60 font-[400] text-[14px] leading-[17.71px] inline`) 5/5
+							div(class=`flex flex-row items-center flex-wrap gap-[10px] md:gap-[6px] sm:grid sm:grid-cols-2`)
+								a(href=`/songs/${it.slug}` class=`text-color1 font-[700] text-[18px] md:text-[14px] leading-[22.77px]`) Xem ngay
+								//- del(class=`empty:hidden ml-[10px] text-color1/40 font-[700] text-[14px] leading-[17.71px]`) #{giaCu}
+								//- span(class=`empty:hidden w-min text-[#FF3333] font-[500] text-[12px] leading-[15.18px] bg-[#FF33331A] py-[6px] px-[14px] rounded-[62px]`) #{percent}
