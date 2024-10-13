@@ -23,23 +23,24 @@ block main
 					th
 						div(class=``) Trạng thái
 			tbody
-				each it in songs
-					tr
-						td
-							div(class=`flex flex-col`) 
-								div(class=``) #{it.title}
+				- if(songs)
+					each it in songs
+						tr
+							td
+								div(class=`flex flex-col`) 
+									div(class=``) #{it.title}
+									div(class=``)
+										a(href=`/${admin}/song/edit/${it.id}` class=`fa-solid fa-pen-to-square text-xanh`) 
+										a(href=`` class=``) 
+							td
 								div(class=``)
-									a(href=`/${admin}/song/edit/${it.id}` class=`fa-solid fa-pen-to-square text-xanh`) 
-									a(href=`` class=``) 
-						td
-							div(class=``)
-								img(src=it.avatar, alt=it.title class=`h-[70px] aspect-[1/1] rounded-[10px]`)
-						td
-							div(class=``) #{it.topicTitle}
-						td
-							div(class=``) #{it.singerFullName}
-						td
-							- if(it.status && it.status == 'active')
-								div(class=``) Hoạt động
-							- if(it.status && it.status == 'inactive')
-								div(class=``) Dừng hoạt động
+									img(src=it.avatar, alt=it.title class=`h-[70px] aspect-[1/1] rounded-[10px]`)
+							td
+								div(class=``) #{it.topicTitle}
+							td
+								div(class=``) #{it.singerFullName}
+							td
+								- if(it.status && it.status == 'active')
+									div(class=``) Hoạt động
+								- if(it.status && it.status == 'inactive')
+									div(class=``) Dừng hoạt động

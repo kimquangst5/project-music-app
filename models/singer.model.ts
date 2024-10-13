@@ -5,8 +5,12 @@ const singerSchema = new Schema({
 	fullName: String,
 	avatar: String,
 	description: String,
+	sex: String,
 	status: String,
-	slug: String,
+	slug: {
+		type: String,
+		slug: "fullName"
+	},
 	deleted: {
 		type: Boolean,
 		default: false

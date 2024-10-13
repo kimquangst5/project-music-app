@@ -22,14 +22,18 @@ const index = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             deleted: false
         });
         for (const song of songs) {
-            const singer = yield singer_model_1.default.findOne({
-                _id: song.singerId
-            });
-            song['singerFullName'] = singer.fullName;
-            const topic = yield topic_model_1.default.findOne({
-                _id: song.topicId
-            });
-            song['topicTitle'] = topic.title;
+            if (song.singerId) {
+                const singer = yield singer_model_1.default.findOne({
+                    _id: song.singerId
+                });
+                song['singerFullName'] = singer.fullName;
+            }
+            if (song.topicId) {
+                const topic = yield topic_model_1.default.findOne({
+                    _id: song.topicId
+                });
+                song['topicTitle'] = topic.title;
+            }
         }
         res.render("admin/pages/song/index.pug", {
             pageTitle: "Danh sách bài hát",
@@ -63,17 +67,14 @@ const create = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 });
 exports.create = create;
 const createPost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const data = {
-        title: req.body.title,
-        description: req.body.description,
-        avatar: (req.body.avatar ? req.body.avatar[0] : ''),
-        singerId: req.body.singer,
-        topicId: req.body.topic,
-        status: req.body.status,
-        audio: (req.body.audio ? req.body.audio[0] : ''),
-        lyrics: req.body.lyrics || ''
-    };
-    const newSong = new song_model_1.default(data);
+    if (req.body.avatar) {
+        req.body.avatar = req.body.avatar[0];
+    }
+    if (req.body.audio) {
+        req.body.audio = req.body.audio[0];
+    }
+    console.log(req.body);
+    const newSong = new song_model_1.default(req.body);
     yield newSong.save();
     res.redirect('back');
 });
@@ -103,34 +104,23 @@ const edit = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 });
 exports.edit = edit;
 const editPatch = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    if (req.body.avatar) {
+        req.body.avatar = req.body.avatar[0];
+    }
+    if (req.body.audio) {
+        req.body.audio = req.body.audio[0];
+    }
+    console.log(req.body);
     try {
         const { id } = req.params;
-        const data = {
-            title: req.body.title,
-            description: req.body.description,
-            avatar: (req.body.avatar ? req.body.avatar[0] : ''),
-            singerId: req.body.singer,
-            topicId: req.body.topic,
-            status: req.body.status,
-            audio: (req.body.audio ? req.body.audio[0] : ''),
-            lyrics: req.body.lyrics || ''
-        };
+        console.log(req.body);
         yield song_model_1.default.updateOne({
             _id: id
-        }, {
-            title: req.body.title,
-            description: req.body.description,
-            avatar: (req.body.avatar[0] ? req.body.avatar[0] : ''),
-            singerId: req.body.singer,
-            topicId: req.body.topic,
-            status: req.body.status,
-            audio: (req.body.audio[0] ? req.body.audio[0] : ''),
-            lyrics: (req.body.lyrics ? req.body.lyrics : ''),
-        });
+        }, req.body);
         res.redirect('back');
     }
     catch (error) {
-        res.redirect('back');
+        console.log();
     }
 });
 exports.editPatch = editPatch;

@@ -4,22 +4,20 @@ include ../../mixins/them-moi.pug
 include ../../mixins/khung-table.pug
 
 block main
-	+dieu-huong(`Danh sách bài hát`)
+	+dieu-huong(`Danh sách ca sĩ`)
 
-	+them-moi(`Thêm bài hát`, `/${admin}/song/create`)
+	+them-moi(`Thêm ca sĩ`, `/${admin}/singer/create`)
 
 	+khung-table(`Danh sách các bài hát`)
 		table(class=`text-text text-left w-full`)
 			thead
 				tr
 					th
-						div(class=``) Tên chủ đề
+						div(class=``) Tên ca sĩ
 					th
 						div(class=`fa-regular fa-image`)
 					th
-						div(class=``) Thể loại
-					th
-						div(class=``) Ca sĩ
+						div(class=``) Giới tính
 					th
 						div(class=``) Trạng thái
 			tbody

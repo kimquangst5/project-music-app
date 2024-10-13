@@ -9,17 +9,21 @@ export const index = async (req: Request, res: Response) => {
 		const songs = await Song.find({
 			deleted: false
 		})
-
 		for (const song of songs) {
-			const singer = await Singer.findOne({
-				_id: song.singerId
-			})
-			song['singerFullName'] = singer.fullName
-
-			const topic = await Topic.findOne({
-				_id: song.topicId
-			})
-			song['topicTitle'] = topic.title
+			if(song.singerId){
+				const singer = await Singer.findOne({
+					_id: song.singerId
+				})
+				song['singerFullName'] = singer.fullName
+			}
+			
+			if(song.topicId){
+				const topic = await Topic.findOne({
+					_id: song.topicId
+				})
+				song['topicTitle'] = topic.title
+			}
+			
 		}
 		res.render("admin/pages/song/index.pug", {
 			pageTitle: "Danh sách bài hát",
@@ -57,17 +61,14 @@ export const create = async (req: Request, res: Response) => {
 
 // [POST] /admin/song/create
 export const createPost = async (req: Request, res: Response) => {
-	const data = {
-		title: req.body.title,
-		description: req.body.description,
-		avatar: (req.body.avatar ? req.body.avatar[0] : ''),
-		singerId: req.body.singer,
-		topicId: req.body.topic,
-		status: req.body.status,
-		audio: (req.body.audio ? req.body.audio[0] : ''),
-		lyrics: req.body.lyrics || ''
+	if(req.body.avatar){
+		req.body.avatar = req.body.avatar[0]
 	}
-	const newSong = new Song(data);
+	if(req.body.audio){
+		req.body.audio = req.body.audio[0]
+	}
+	console.log(req.body)
+	const newSong = new Song(req.body);
 	await newSong.save();
 	res.redirect('back')
 }
@@ -102,32 +103,22 @@ export const edit = async (req: Request, res: Response) => {
 
 // [PATCH] /admin/song/edit/:id
 export const editPatch = async (req: Request, res: Response) => {
+	if(req.body.avatar){
+		req.body.avatar = req.body.avatar[0]
+	}
+	if(req.body.audio){
+		req.body.audio = req.body.audio[0]
+	}
+	console.log(req.body)
 	try {
 		const { id } = req.params
-		const data = {
-			title: req.body.title,
-			description: req.body.description,
-			avatar: (req.body.avatar ? req.body.avatar[0] : ''),
-			singerId: req.body.singer,
-			topicId: req.body.topic,
-			status: req.body.status,
-			audio: (req.body.audio ? req.body.audio[0] : ''),
-			lyrics: req.body.lyrics || ''
-		}
+		
+		console.log(req.body)
 		await Song.updateOne({
 			_id: id
-		}, {
-			title: req.body.title,
-			description: req.body.description,
-			avatar: (req.body.avatar[0] ? req.body.avatar[0] : ''),
-			singerId: req.body.singer,
-			topicId: req.body.topic,
-			status: req.body.status,
-			audio: (req.body.audio[0] ? req.body.audio[0] : ''),
-			lyrics: (req.body.lyrics ? req.body.lyrics : ''),
-		})
+		}, req.body)
 		res.redirect('back')
 	} catch (error) {
-		res.redirect('back')
+		console.log()
 	}
 }

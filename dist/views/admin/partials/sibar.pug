@@ -10,6 +10,14 @@ aside(
 		//- <i class="fa-solid fa-objects-column"></i> //trang 12
 		+box-sidebar(`Tổng quan`, `/${admin}/main`, `fa-solid fa-grid-round-2`)
 
+		+box-sidebar(`Thể loại`, '',  `fa-regular fa-music`)
+			+box-sidebar(`Thêm thể loại`, `/${admin}/topic/create`)
+			+box-sidebar(`Danh sách`, `/${admin}/topic`)
+
+		+box-sidebar(`Ca sĩ`, '',  `fa-regular fa-music`)
+			+box-sidebar(`Thêm ca sĩ`, `/${admin}/singer/create`)
+			+box-sidebar(`Danh sách`, `/${admin}/singer`)
+
 		+box-sidebar(`Bài hát`, '',  `fa-regular fa-music`)
 			+box-sidebar(`Thêm bài hát`, `/${admin}/song/create`)
 			+box-sidebar(`Danh sách`, `/${admin}/song`)

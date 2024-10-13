@@ -28,11 +28,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const router = express_1.default.Router();
-const controller = __importStar(require("../../controller/admin/song-category.controller"));
+const controller = __importStar(require("../../controller/admin/singer.controller"));
+const uploadCloud = __importStar(require("../../middlewares/admin/uploadCloud.middlewares"));
 const multer_1 = __importDefault(require("multer"));
 const upload = (0, multer_1.default)();
-const uploadCloud_middlewares_1 = require("../../middlewares/admin/uploadCloud.middlewares");
 router.get(`/`, controller.index);
 router.get(`/create`, controller.create);
-router.post(`/create`, upload.single('avatar'), uploadCloud_middlewares_1.uploadSingle, controller.createPost);
+router.post(`/create`, upload.single('avatar'), uploadCloud.uploadSingle, controller.createPost);
 exports.default = router;
