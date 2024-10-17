@@ -11,9 +11,8 @@ export const index = async (req: Request, res: Response) => {
 	let keySlug = key.trim().replace(/\s+/g, '-')
 	keySlug = unidecode(keySlug)
 
-	const regexTitle = new RegExp(key, 'i');
+	let regexTitle = new RegExp(key, 'i');
 	let regexSlug = new RegExp(keySlug, 'i');
-
 	
 	const songs = await Song.find({
 		$or: [
