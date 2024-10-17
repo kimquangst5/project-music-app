@@ -10,20 +10,20 @@ export const index = async (req: Request, res: Response) => {
 			deleted: false
 		})
 		for (const song of songs) {
-			if(song.singerId){
+			if (song.singerId) {
 				const singer = await Singer.findOne({
 					_id: song.singerId
 				})
 				song['singerFullName'] = singer.fullName
 			}
-			
-			if(song.topicId){
+
+			if (song.topicId) {
 				const topic = await Topic.findOne({
 					_id: song.topicId
 				})
 				song['topicTitle'] = topic.title
 			}
-			
+
 		}
 		res.render("admin/pages/song/index.pug", {
 			pageTitle: "Danh sách bài hát",
@@ -61,10 +61,10 @@ export const create = async (req: Request, res: Response) => {
 
 // [POST] /admin/song/create
 export const createPost = async (req: Request, res: Response) => {
-	if(req.body.avatar){
+	if (req.body.avatar) {
 		req.body.avatar = req.body.avatar[0]
 	}
-	if(req.body.audio){
+	if (req.body.audio) {
 		req.body.audio = req.body.audio[0]
 	}
 	console.log(req.body)
@@ -103,16 +103,16 @@ export const edit = async (req: Request, res: Response) => {
 
 // [PATCH] /admin/song/edit/:id
 export const editPatch = async (req: Request, res: Response) => {
-	if(req.body.avatar){
+	if (req.body.avatar) {
 		req.body.avatar = req.body.avatar[0]
 	}
-	if(req.body.audio){
+	if (req.body.audio) {
 		req.body.audio = req.body.audio[0]
 	}
 	console.log(req.body)
 	try {
 		const { id } = req.params
-		
+
 		console.log(req.body)
 		await Song.updateOne({
 			_id: id
@@ -121,4 +121,19 @@ export const editPatch = async (req: Request, res: Response) => {
 	} catch (error) {
 		console.log()
 	}
+}
+
+export const deleteSong = async (req: Request, res: Response) => {
+	try {
+		const { id } = req.params
+		await Song.updateOne({
+			_id: id
+		}, {
+			deleted: true
+		})
+		res.redirect('back')
+	} catch (error) {
+		res.redirect('back')
+	}
+
 }

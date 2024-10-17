@@ -25,5 +25,8 @@ router.patch(
 	controller.editPatch
 );
 
+router.get(`/delete/:id`, controller.deleteSong);
+
+
 
 export default router

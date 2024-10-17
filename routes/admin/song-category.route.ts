@@ -15,4 +15,19 @@ router.post(
 	controller.createPost
 );
 
+router.get(`/edit/:id`, controller.edit);
+
+router.patch(
+	`/edit/:id`,
+	upload.single('avatar'),
+	uploadSingle,
+	controller.editPatch
+);
+
+router.get(
+	`/delete/:id`,
+	controller.deleteTopic
+);
+
+
 export default router

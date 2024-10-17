@@ -17,4 +17,17 @@ router.post(
 	controller.createPost
 );
 
+router.get(`/edit/:id`, controller.edit);
+
+router.patch(
+	`/edit/:id`,
+	upload.single('avatar'),
+	uploadCloud.uploadSingle,
+	controller.editPatch
+);
+
+
+router.get(`/delete/:id`, controller.deleteSinger);
+
+
 export default router

@@ -19,14 +19,14 @@ block main
 					th
 						div(class=``) Trạng thái
 			tbody
-				each it in topics
+				each it in singers
 					tr
 						td
 							div(class=`flex flex-col`) 
-									div(class=``) #{it.title}
+									div(class=``) #{it.fullName}
 									div(class=`flex gap-[15px]`)
-										a(href=`/${admin}/topic/edit/${it.id}` class=`fa-solid fa-pen-to-square text-xanh`)
-										a(href=`/${admin}/topic/delete/${it.id}` class=`fa-solid fa-trash text-do`)
+										a(href=`/${admin}/trash/singer/restore/${it.id}` class=`fa-solid fa-rotate-left text-xanh`)
+										a(href=`/${admin}/trash/singer/delete/${it.id}` class=`fa-solid fa-trash text-do`)
 						td
 							div(class=``)
 								img(src=it.avatar, alt=it.title class=`h-[70px] aspect-[1/1] rounded-[10px] object-cover`)

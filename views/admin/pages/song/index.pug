@@ -29,12 +29,12 @@ block main
 							td
 								div(class=`flex flex-col`) 
 									div(class=``) #{it.title}
-									div(class=``)
+									div(class=`flex items-center gap-[15px]`)
 										a(href=`/${admin}/song/edit/${it.id}` class=`fa-solid fa-pen-to-square text-xanh`) 
-										a(href=`` class=``) 
+										a(href=`/${admin}/song/delete/${it.id}` class=`fa-solid fa-trash text-do`) 
 							td
 								div(class=``)
-									img(src=it.avatar, alt=it.title class=`h-[70px] aspect-[1/1] rounded-[10px]`)
+									img(src=it.avatar, alt=it.title class=`h-[70px] aspect-[1/1] rounded-[10px] object-cover`)
 							td
 								div(class=``) #{it.topicTitle}
 							td

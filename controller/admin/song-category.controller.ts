@@ -39,3 +39,46 @@ export const createPost = async (req: Request, res: Response) => {
 		res.redirect('back');
 	}
 }
+
+export const edit = async (req: Request, res: Response) => {
+	try {
+		const { id } = req.params
+		const topic = await Topic.findOne({
+			_id: id,
+			deleted: false
+		})
+		console.log(topic)
+		res.render("admin/pages/topic/edit.pug", {
+			pageTitle: "Chỉnh sửa thể loại",
+			topic: topic
+		})
+	} catch (error) {
+		res.redirect('back')
+	}
+}
+
+export const editPatch = async (req: Request, res: Response) => {
+	try {
+		const id = req.params.id
+		await Topic.updateOne({
+			_id: id
+		}, req.body)
+		res.redirect('back')
+	} catch (error) {
+		res.redirect('back')
+	}
+}
+
+export const deleteTopic = async (req: Request, res: Response) => {
+	try {
+		const { id } = req.params;
+		await Topic.updateOne({
+			_id: id
+		}, {
+			deleted: true
+		})
+		res.redirect('back')
+	} catch (error) {
+		res.redirect('back')
+	}
+}

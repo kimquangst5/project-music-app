@@ -1,0 +1,77 @@
+extends ../../layout/default.pug
+include ../../mixins/dieu-huong.pug
+include ../../mixins/them-moi.pug
+include ../../mixins/khung-table.pug
+include ../../mixins/option-input.pug
+include ../../mixins/cap-nhat.pug
+
+block main
+
+	-
+		let array = [
+			{
+				link: `/${admin}/singer`,
+				title: 'Danh sách thể loại'
+			}
+		]
+	+dieu-huong("Cập nhật", array)
+
+	+cap-nhat("Cập nhật")(button-submit-form = '')
+
+	+khung-table("Nội dung chính")
+		form(
+			class=`flex flex-col gap-y-[20px]`
+			action = `/${admin}/singer/edit/${singer.id}?_method=PATCH`
+			method="POST"
+			enctype="multipart/form-data"
+		)
+			+option-input('Thể loại', 'title', 'yes', `fa-regular fa-music`, 'Tên thể loại', "text", singer.fullName)
+			div(class=`flex flex-row items-center gap-y-[10px] flex-col`)
+				div(class="flex gap-[10px] items-center") 
+					i(class='fa-regular fa-music')
+					label(
+						for='description'
+						class=`text-[14px]`
+					) Mô tả
+				textarea(
+					name="description"
+					id = 'description'
+					class=`p-[5px] rounded-[5px] border-[1px] text-[12px] w-full bg-transparent border-text outline-none`
+					placeholder='Mô tả thể loại nhạc'
+					textarea-mce
+				) !{singer ? singer.description : ''}
+			
+			div(class=`flex flex-row items-center gap-y-[10px] grid grid-cols-4` upload-image)
+				div(class="flex gap-[10px] items-center") 
+					i(class='fa-regular fa-music')
+					label(
+						for='avatar'
+						class=`text-[14px]`
+					) Hình ảnh
+				input(
+					type='file'
+					accept='image/*'
+					name="avatar"
+					id = 'avatar'
+					class=`p-[5px] rounded-[5px] border-[1px] text-[12px] bg-transparent border-text outline-none col-span-2`
+					placeholder='Ảnh bài hát'
+				)
+				img(src=singer.avatar, alt="Kim Quang"
+					class=`w-[25%] h-auto rounded-[10px] cursor-pointer`
+				)
+			div(class=`flex flex-row items-center gap-y-[10px] grid grid-cols-4`)
+				div(class="flex gap-[10px] items-center") 
+					i(class='fa-regular fa-music')
+					label(
+						for='status'
+						class=`text-[14px]`
+					) Trạng thái
+				div(class=`col-span-2 flex justify-between`)
+					div(class=`flex gap-[10px]`) 
+						input(type="radio", name="status" id="active" value="active" checked = (singer ? (singer.status == 'active' ? true : false) : ''))
+						label(for="active") Hoạt động
+					div(class=`flex gap-[10px]`) 
+						input(type="radio", name="status" id="inactive" value="inactive" checked = (singer ? (singer.status == 'inactive' ? true : false) : ''))
+						label(for="inactive") Dừng hoạt động
+			
+			button(type="submit" class=`hidden`) Cập nhật
