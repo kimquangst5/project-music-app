@@ -21,7 +21,7 @@ const index = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let { key } = req.query;
     let keySlug = key.trim().replace(/\s+/g, '-');
     keySlug = (0, unidecode_1.default)(keySlug);
-    const regexTitle = new RegExp(key, 'i');
+    let regexTitle = new RegExp(key, 'i');
     let regexSlug = new RegExp(keySlug, 'i');
     const songs = yield song_model_1.default.find({
         $or: [
