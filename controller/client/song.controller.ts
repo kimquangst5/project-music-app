@@ -61,16 +61,23 @@ export const detail = async (req: Request, res: Response) => {
 
 // [PATCH] /songs/detail/change-like
 export const changeLike = async (req: Request, res: Response) => {
-	const { id, liked } = req.body
-	await Song.updateOne({
-		_id: id
-	}, {
-		like: parseInt(liked)
-	})
-	res.json({
-		code: 200,
-		message: parseInt(liked)
-	})
+	try {
+		const { id, liked } = req.body
+		await Song.updateOne({
+			_id: id
+		}, {
+			like: parseInt(liked)
+		})
+		res.json({
+			code: 200,
+			message: parseInt(liked)
+		})
+	} catch (error) {
+		res.json({
+			code: 400,
+		})
+	}
+
 }
 
 // [PATCH] /songs/change-listen

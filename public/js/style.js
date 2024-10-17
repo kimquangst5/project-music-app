@@ -199,12 +199,16 @@ if (input) {
 			.then(res => res.json())
 			.then(data => {
 				if (data.code == 200) {
-					const htmlSong = data.songs.map(it => `<div class="flex items-center gap-x-[10px]"> <a class="h-[50px] " href="/songs/detail/${it.slug}"><img class="h-full aspect-square rounded-[10px]" src=${it.avatar} alt=""></a><div class="flex flex-col gap-[10px]"><a href="/songs/detail/${it.slug}" class="font-bold text-chu text-[18px]">${it.title}</a><div class="flex gap-x-[10px] items-center"><div class="fa-regular fa-microphone"></div><div>${it.singer}</div></div></div></div>`)
 					const appench = document.querySelector('header form [appench-child]');
-					if (appench) {
-						appench.innerHTML = htmlSong.join("")
+					if (appench){
+						if(data.songs.length > 1){
+							const htmlSong = data.songs.map(it => `<div class="flex items-center gap-x-[10px]"> <a class="h-[50px] " href="/songs/detail/${it.slug}"><img class="h-full aspect-square rounded-[10px]" src=${it.avatar} alt=""></a><div class="flex flex-col gap-[10px]"><a href="/songs/detail/${it.slug}" class="font-bold text-chu text-[18px]">${it.title}</a><div class="flex gap-x-[10px] items-center"><div class="fa-regular fa-microphone"></div><div>${it.singer}</div></div></div></div>`)
+							appench.innerHTML = htmlSong.join("")
+						}
+						else{
+							appench.innerHTML = ''
+						}
 					}
-
 				}
 			})
 	})

@@ -4,25 +4,38 @@ import Song from '../../models/song.model';
 import Singer from '../../models/singer.model';
 
 export const index = async (req: Request, res: Response) => {
-	const topics = await Topic.find({
-		deleted: false
-	})
-	res.render("admin/pages/topic/index.pug", {
-		pageTitle: "Chủ đề bài hát",
-		topics: topics
-	})
+	try {
+		const topics = await Topic.find({
+			deleted: false
+		})
+		res.render("admin/pages/topic/index.pug", {
+			pageTitle: "Chủ đề bài hát",
+			topics: topics
+		})
+	} catch (error) {
+		res.redirect('back')
+	}
+
 }
 
 export const create = async (req: Request, res: Response) => {
-	res.render("admin/pages/topic/create.pug", {
-		pageTitle: "Thêm thể loại"
-	})
+	try {
+		res.render("admin/pages/topic/create.pug", {
+			pageTitle: "Thêm thể loại"
+		})
+	} catch (error) {
+		res.redirect('back')
+	}
+
 
 }
 
 export const createPost = async (req: Request, res: Response) => {
-	console.log(req.body)
-	const newTopic = new Topic(req.body);
-	await newTopic.save();
-	res.redirect('back');
+	try {
+		const newTopic = new Topic(req.body);
+		await newTopic.save();
+		res.redirect('back');
+	} catch (error) {
+		res.redirect('back');
+	}
 }
